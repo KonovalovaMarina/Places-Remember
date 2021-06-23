@@ -1,5 +1,5 @@
 import folium as folium
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from geopy import Nominatim
 
@@ -44,5 +44,7 @@ def add_memory(request):
 
 
 @login_required
-def delete_memory(request):
-    return render(request, 'delete_memory.html')
+def delete_memory(request, memory_id):
+    memory = get_object_or_404(Memory, id=memory_id)
+    memory.delete()
+    return redirect('home')
