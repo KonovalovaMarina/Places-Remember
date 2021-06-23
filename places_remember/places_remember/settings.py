@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +123,10 @@ SOCIAL_AUTH_VK_OAUTH2_SECRET = os.environ.get("SOCIAL_AUTH_VK_OAUTH2_SECRET")
 
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email', 'photos']
 SOCIAL_AUTH_VK_OAUTH2_EXTRA_DATA = ['email', 'photo_big']
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

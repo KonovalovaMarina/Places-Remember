@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if not memories %}
+ <div class="container">
+        <h1>У вас нет ни одного воспоминания</h1>
+        <button>
+            <a href="{% url 'add_memory' %}">Добавить воспоминание</a>
+        </button>
+ </div>
+{% else %}
+<div class="iframe">
+    {{ map|safe }}
+</div>
+<div>
+    {% for memory in memories %}
+    <div>
+        <h5>{{memory.title}}</h5>
+        <textarea readonly>{{ memory.description }}</textarea>
+        <form action="{% url 'delete_memory' memory_id=memory.id %}">
+            <button type='submit' class="btn btn-danger">Удалить</button>
+        </form>
+    </div>
+
+    {% endfor %}
+    <div class="container">
+        <button class="btn btn-danger">
+            <a href="{% url 'add_memory' %}">Добавить воспоминание</a>
+        </button>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
