@@ -22,7 +22,7 @@ def home(request):
             folium.Marker(
                 [location.latitude, location.longitude],
                 popup=str(memory.title.encode("unicode_escape").decode()),
-                icon=folium.Icon(color='red', icon='info-sign')
+                icon=folium.Icon(color='blue', icon='info-sign')
             ).add_to(m)
     map = m._repr_html_()
     return render(request, 'home.html', {'memories': memories, 'map': map})

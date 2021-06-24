@@ -1,15 +1,36 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
-<div class="iframe">
-    {{ map|safe }}
-</div>
-<div class="form">
-    <form action="" method="post" style="width:75%">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-danger">Добавить</button>
-    </form>
+<div id="wrapper">
+
+        {% include "navbar.html" %}
+
+        <!-- Page Content -->
+        <div id="page-wrapper" style="margin: 0 0 0 0;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Добавление воспоминания</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <form role="form" action="" method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+
+                <div class="panel panel-default">
+
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="iframe" style="width=500, height=300">
+                                {{ map|safe }}
+                            </div>
+                       </div>
+
+                </div>
+            </div>
+        </div>
 </div>
 {% endblock %}

@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<button>
-    <a href="{% url 'social:begin' 'vk-oauth2' %}">Vk</a>
-</button>
+<div class="container">
+    <div class="row">
+        <h1 class="page-header">Places-Remember</h1>
+        <h4>Веб-приложение, с помощью которого вы можете хранить свои впечатления о посещаемых местах</h4>
+        <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+            <button class="btn btn-primary w-25">
+                <a href="{% url 'social:begin' 'vk-oauth2' %}" style="color: white">Войти с помощью VK</a>
+            </button>
+        </div>
+    </div>
+</div>
 {% endblock %}

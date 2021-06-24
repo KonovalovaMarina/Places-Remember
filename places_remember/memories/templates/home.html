@@ -1,33 +1,79 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-{% if not memories %}
- <div class="container">
-        <h1>У вас нет ни одного воспоминания</h1>
-        <button>
-            <a href="{% url 'add_memory' %}">Добавить воспоминание</a>
-        </button>
- </div>
-{% else %}
-<div class="iframe">
-    {{ map|safe }}
-</div>
-<div>
-    {% for memory in memories %}
-    <div>
-        <h5>{{memory.title}}</h5>
-        <textarea readonly>{{ memory.description }}</textarea>
-        <form action="{% url 'delete_memory' memory_id=memory.id %}">
-            <button type='submit' class="btn btn-danger">Удалить</button>
-        </form>
-    </div>
+<div id="wrapper">
 
-    {% endfor %}
-    <div class="container">
-        <button class="btn btn-danger">
-            <a href="{% url 'add_memory' %}">Добавить воспоминание</a>
-        </button>
-    </div>
+        {% include "navbar.html" %}
+
+        <!-- Page Content -->
+        <div id="page-wrapper" style="margin: 0 0 0 0;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Ваши воспоминания</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <button class="btn btn-primary" >
+                    <a href="{% url 'add_memory' %}" style="color: white">Добавить воспоминание</a>
+                </button>
+                {% if not memories %}
+                    <h4>У вас нет ни одного воспоминания</h4>
+                {% else %}
+                <div class="panel panel-default">
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="iframe" style="width=500, height=300">
+                                {{ map|safe }}
+                            </div>
+
+                            <ul class="timeline">
+                              {% for memory in memories %}
+                                  {% if not forloop.counter|divisibleby:2 %}
+                                  <li>
+                                      <div class="timeline-badge"><i> {{ forloop.counter }} </i>
+                                      </div>
+                                      <div class="timeline-panel">
+                                          <div class="timeline-heading">
+                                              <h4 class="timeline-title">{{ memory.title }}</h4>
+                                              <h5 class="timeline-title">{{ memory.location }}</h5>
+                                          </div>
+                                          <div class="timeline-body">
+                                              <p>{{ memory.description }}</p>
+                                              <div class="btn-group">
+                                                <form action="{% url 'delete_memory' memory_id=memory.id %}">
+                                                    <button type='submit' class="btn btn-danger">Удалить</button>
+                                                </form>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  {% else %}
+                                  <li class="timeline-inverted">
+                                      <div class="timeline-badge"><i> {{ forloop.counter }} </i>
+                                      </div>
+                                      <div class="timeline-panel">
+                                          <div class="timeline-heading">
+                                              <h4 class="timeline-title">{{ memory.title }}</h4>
+                                              <h5 class="timeline-title">{{ memory.location }}</h5>
+                                          </div>
+                                          <div class="timeline-body">
+                                              <p>{{ memory.description }}</p>
+                                              <div class="btn-group">
+                                                <form action="{% url 'delete_memory' memory_id=memory.id %}">
+                                                    <button type='submit' class="btn btn-danger">Удалить</button>
+                                                </form>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  {% endif %}
+                              {% endfor %}
+                            </ul>
+                       </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
 </div>
-{% endif %}
 {% endblock %}
