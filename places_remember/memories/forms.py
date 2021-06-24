@@ -1,5 +1,6 @@
 from django.forms import ModelForm, ValidationError
 from geopy import Nominatim
+import typing as t
 
 from .models import Memory
 
@@ -15,12 +16,11 @@ class AddMemoryForm(ModelForm):
             'description': 'Описание'
         }
 
-    def clean_location(self):
+    def clean_location(self) -> t.Any:
         location = self.cleaned_data.get('location')
         geolocator = Nominatim(user_agent='Mozilla/5.0')
         try:
-            place = geolocator.geocode(location)
-            p_lat, p_lon = place.latitude, place.longitude
+            geolocator.geocode(location)
             return location
         except AttributeError:
             raise ValidationError('Неверный адрес')

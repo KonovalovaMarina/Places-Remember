@@ -1,4 +1,6 @@
 import folium as folium
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpRequest
+import typing as t
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from geopy import Nominatim
@@ -7,12 +9,12 @@ from .forms import AddMemoryForm
 from .models import Memory
 
 
-def login(request):
+def login(request: HttpRequest) -> HttpResponse:
     return render(request, 'login.html')
 
 
 @login_required
-def home(request):
+def home(request: HttpRequest) -> HttpResponse:
     m = folium.Map(width=1250, height=750, location=[56.8334, 60.5984])
     memories = Memory.objects.filter(user=request.user)
     if memories:
@@ -29,7 +31,7 @@ def home(request):
 
 
 @login_required
-def add_memory(request):
+def add_memory(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = AddMemoryForm(request.POST)
         if form.is_valid():
@@ -44,7 +46,7 @@ def add_memory(request):
 
 
 @login_required
-def delete_memory(request, memory_id):
+def delete_memory(request: HttpRequest, memory_id: int) -> t.Union[HttpResponseRedirect, HttpResponsePermanentRedirect]:
     memory = get_object_or_404(Memory, id=memory_id)
     memory.delete()
     return redirect('home')

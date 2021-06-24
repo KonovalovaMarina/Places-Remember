@@ -4,7 +4,7 @@ from ..forms import AddMemoryForm
 
 class AddMemoryFormTestCase(TestCase):
 
-    def test_place_is_wrong(self):
+    def test_place_is_wrong(self) -> None:
         data = {
             'location': 'Несуществующее место',
             'title': 'Название',
@@ -13,7 +13,7 @@ class AddMemoryFormTestCase(TestCase):
         form = AddMemoryForm(data=data)
         self.assertFalse(form.is_valid())
 
-    def test_null_title(self):
+    def test_null_title(self) -> None:
         data = {
             'location': 'Екатеринбург, Тургенева 4',
             'title': '',
@@ -22,7 +22,7 @@ class AddMemoryFormTestCase(TestCase):
         form = AddMemoryForm(data=data)
         self.assertFalse(form.is_valid())
 
-    def test_null_description(self):
+    def test_null_description(self) -> None:
         data = {
             'location': 'Екатеринбург, Тургенева 4',
             'title': 'Название',
