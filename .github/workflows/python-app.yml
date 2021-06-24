@@ -31,8 +31,8 @@ jobs:
     - name: Run migrations
       env:
         SECRET_KEY: ${{ secrets.APP_SECRET_KEY }}
-      run: python manage.py migrate
+      run: python places_remember/manage.py migrate
     - name: Run tests
       env:
         SECRET_KEY: ${{ secrets.APP_SECRET_KEY }}
-      run: python manage.py test
+      run: python places_remember/manage.py test
