@@ -35,4 +35,5 @@ jobs:
     - name: Run tests
       env:
         SECRET_KEY: ${{ secrets.APP_SECRET_KEY }}
+        ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
       run: python places_remember/manage.py test
